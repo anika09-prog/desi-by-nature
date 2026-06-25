@@ -622,7 +622,7 @@ async function flushOfflineQueue() {
   for (let order of q) {
     try { await postToSheet('saveOrder', order); synced++; } catch(e) {}
   }
-  if (synced) { saveQueue([]); showToast(`✅ Synced ${synced} order${synced>1?'s':''}`, 'success'); loadTodayOrders(); loadAllOrders(); }
+  if (synced) { saveQueue([]); showToast(`✅ Synced ${synced} order${synced>1?'s':''}`, 'success'); loadtodayorders();}
 }
 
 // ============================================================
@@ -1229,7 +1229,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('touchend', e => {
     const dy = e.changedTouches[0].clientY - startY;
     if (dy > 80 && window.scrollY === 0) {
-      if (currentTab === 'today') loadTodayOrders();
+      if (currentTab === 'today') loadtodayorders();
       if (currentTab === 'analytics') loadAllOrders();
     }
   });
