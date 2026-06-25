@@ -1212,8 +1212,9 @@ async function saveFullEdit() {
 // INIT
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
-  updateOnlineStatus();
+  loadTodayOrders();
   loadTodayCostsFromLocal();
+  updateOnlineStatus();
   document.getElementById('orderTime').value = getCurrentTime();
   document.getElementById('orderDate').value = today();
   document.getElementById('costDate').value = today();
