@@ -882,6 +882,10 @@ select.form-control { background-image: url("data:image/svg+xml,%3Csvg xmlns='ht
         <input type="text" class="form-control" id="costItemName" placeholder="e.g. Vegetables, Gas, Masala" autocomplete="off"/>
         <div class="field-error" id="err-costName">Please enter item name</div>
       </div>
+      <div class="form-group">
+        <label class="form-label">Cost Date <span style="color:#06A77D;font-size:11px;font-weight:500;text-transform:none">(change for backdated entry)</span></label>
+        <input type="date" class="form-control" id="costDate"/>
+      </div>
       <div class="form-group mb-0">
         <label class="form-label">Item Cost</label>
         <div class="input-prefix-wrap">
@@ -1435,7 +1439,8 @@ function addCostItem() {
   valid = validateField('costItemCost','err-costCost', cost > 0) && valid;
   if (!valid) return;
 
-  const item = { date: today(), itemName: name, itemCost: parseFloat(cost), id: Date.now() };
+  const costDate = document.getElementById('costDate').value || today();
+  const item = { date: costDate, itemName: name, itemCost: parseFloat(cost), id: Date.now() };
   todayCosts.push(item);
   saveCostsLocally();
 
@@ -1991,6 +1996,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadTodayCostsFromLocal();
 
   // Set date picker defaults
+  document.getElementById('costDate').value = today();
   document.getElementById('filterDayPicker').value = today();
   document.getElementById('filterMonthPicker').value = today().slice(0,7);
   document.getElementById('filterRangeFrom').value = today();
