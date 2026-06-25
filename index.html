@@ -518,7 +518,7 @@ select.form-control { background-image: url("data:image/svg+xml,%3Csvg xmlns='ht
 // ============================================================
 // CONFIG — paste your Apps Script URL here
 // ============================================================
-const APPS_SCRIPT_URL = "https://anika09-prog.github.io/desi-by-nature/";
+const APPS_SCRIPT_URL = "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 
 // ============================================================
 // STATE
@@ -622,7 +622,7 @@ async function flushOfflineQueue() {
   for (let order of q) {
     try { await postToSheet('saveOrder', order); synced++; } catch(e) {}
   }
-  if (synced) { saveQueue([]); showToast(`✅ Synced ${synced} order${synced>1?'s':''}`, 'success'); loadtodayorders();}
+  if (synced) { saveQueue([]); showToast(`✅ Synced ${synced} order${synced>1?'s':''}`, 'success'); loadTodayOrders(); loadAllOrders(); }
 }
 
 // ============================================================
@@ -664,7 +664,7 @@ function switchTab(tab, el) {
   el.classList.add('active');
   currentTab = tab;
   if (tab === 'today') loadTodayOrders();
-  if (tab === 'analytics') loadAllOrders();
+  if (tab === 'analytics') { loadAllOrders(); }
   if (tab === 'cost') { loadTodayCostsFromLocal(); renderCostList(); updateProfitBox(); }
 }
 
@@ -1212,9 +1212,10 @@ async function saveFullEdit() {
 // INIT
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
-  loadTodayOrders();
-  loadTodayCostsFromLocal();
   updateOnlineStatus();
+  loadTodayCostsFromLocal();
+  loadTodayOrders();
+  loadAllOrders();
   document.getElementById('orderTime').value = getCurrentTime();
   document.getElementById('orderDate').value = today();
   document.getElementById('costDate').value = today();
@@ -1229,7 +1230,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('touchend', e => {
     const dy = e.changedTouches[0].clientY - startY;
     if (dy > 80 && window.scrollY === 0) {
-      if (currentTab === 'today') loadtodayorders();
+      if (currentTab === 'today') loadTodayOrders();
       if (currentTab === 'analytics') loadAllOrders();
     }
   });
