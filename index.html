@@ -841,7 +841,7 @@ async function loadTodayOrders() {
   document.getElementById('todayOrderList').innerHTML = '<div class="skeleton-card skeleton"></div><div class="skeleton-card skeleton"></div>';
 
   // Always fetch fresh from Sheets first
-  if (navigator.onLine && APPS_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbxCcLC-3BYkE0fh0W7z-zXaN0PsCQblOJ4ZRSrlrGLvkpzEiQc_z4aiZjYJu4ReeSZ7/exec') {
+  if (navigator.onLine  !== 'https://script.google.com/macros/s/AKfycbxCcLC-3BYkE0fh0W7z-zXaN0PsCQblOJ4ZRSrlrGLvkpzEiQc_z4aiZjYJu4ReeSZ7/exec') {
     try {
       const res = await getFromSheet({ action: 'getOrders', date: today() });
       if (res.orders && res.orders.length >= 0) {
@@ -973,7 +973,7 @@ async function doStatusUpdate(orderId, orderStatus, paymentStatus, editId) {
   localStorage.setItem('dbn_orders', JSON.stringify(localOrders));
 
   // Sync to Sheets
-  if (navigator.onLine && APPS_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbxCcLC-3BYkE0fh0W7z-zXaN0PsCQblOJ4ZRSrlrGLvkpzEiQc_z4aiZjYJu4ReeSZ7/exec') {
+  if (navigator.onLine  !== 'https://script.google.com/macros/s/AKfycbxCcLC-3BYkE0fh0W7z-zXaN0PsCQblOJ4ZRSrlrGLvkpzEiQc_z4aiZjYJu4ReeSZ7/exec') {
     try {
       const result = await postToSheet('updateStatus', { orderId, orderStatus, paymentStatus });
       console.log('updateStatus result:', JSON.stringify(result));
@@ -1005,7 +1005,7 @@ function setViewBy(v) {
 }
 
 async function loadAllOrders() {
-  if (navigator.onLine && APPS_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbxCcLC-3BYkE0fh0W7z-zXaN0PsCQblOJ4ZRSrlrGLvkpzEiQc_z4aiZjYJu4ReeSZ7/exec') {
+  if (navigator.onLine  !== 'https://script.google.com/macros/s/AKfycbxCcLC-3BYkE0fh0W7z-zXaN0PsCQblOJ4ZRSrlrGLvkpzEiQc_z4aiZjYJu4ReeSZ7/exec') {
     try {
       const res = await getFromSheet({ action: 'getAllOrders' });
       if (res.orders) {
@@ -1194,7 +1194,7 @@ async function saveFullEdit() {
   allOrders = allOrders.map(o => o.orderId === orderId ? {...o, ...updatedOrder} : o);
 
   // Sync to Sheets
-  if (navigator.onLine && APPS_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbxCcLC-3BYkE0fh0W7z-zXaN0PsCQblOJ4ZRSrlrGLvkpzEiQc_z4aiZjYJu4ReeSZ7/exec') {
+  if (navigator.onLine  !== 'https://script.google.com/macros/s/AKfycbxCcLC-3BYkE0fh0W7z-zXaN0PsCQblOJ4ZRSrlrGLvkpzEiQc_z4aiZjYJu4ReeSZ7/exec') {
     try {
       await postToSheet('updateFullOrder', updatedOrder);
     } catch(e) { console.error(e); }
