@@ -973,7 +973,7 @@ async function doStatusUpdate(orderId, orderStatus, paymentStatus, editId) {
   localStorage.setItem('dbn_orders', JSON.stringify(localOrders));
 
   // Sync to Sheets
-  if (navigator.onLine  !== 'https://script.google.com/macros/s/AKfycbxCcLC-3BYkE0fh0W7z-zXaN0PsCQblOJ4ZRSrlrGLvkpzEiQc_z4aiZjYJu4ReeSZ7/exec') {
+  if (navigator.onLine) {
     try {
       const result = await postToSheet('updateStatus', { orderId, orderStatus, paymentStatus });
       console.log('updateStatus result:', JSON.stringify(result));
